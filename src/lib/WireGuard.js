@@ -23,6 +23,10 @@ const {
   WG_POST_UP,
   WG_PRE_DOWN,
   WG_POST_DOWN,
+  WG_CLIENT_PRE_UP,
+  WG_CLIENT_POST_UP,
+  WG_CLIENT_PRE_DOWN,
+  WG_CLIENT_POST_DOWN,
 } = require('../config');
 
 module.exports = class WireGuard {
@@ -192,16 +196,32 @@ AllowedIPs = ${client.address}/32`;
     return client;
   }
 
-  async getClientConfiguration({ clientId }) {
+  async getClientConfiguration({ clientId, addClientActions=false }) {
     const config = await this.getConfig();
     const client = await this.getClient({ clientId });
 
+    let clientActions = ''
+    if (addClientActions) {
+      if (WG_CLIENT_PRE_UP) {
+        clientActions += `PreUp = ${WG_CLIENT_PRE_UP}\n`
+      }
+      if (WG_CLIENT_POST_UP) {
+        clientActions += `PostUp = ${WG_CLIENT_POST_UP}\n`
+      }
+      if (WG_CLIENT_PRE_DOWN) {
+        clientActions += `PreDown = ${WG_CLIENT_PRE_DOWN}\n`
+      }
+      if (WG_CLIENT_POST_DOWN) {
+        clientActions += `PostDown = ${WG_CLIENT_POST_DOWN}\n`
+      }
+    }
     return `
 [Interface]
 PrivateKey = ${client.privateKey}
 Address = ${client.address}/24
 ${WG_DEFAULT_DNS ? `DNS = ${WG_DEFAULT_DNS}` : ''}
 ${WG_MTU ? `MTU = ${WG_MTU}` : ''}
+${clientActions}
 
 [Peer]
 PublicKey = ${config.server.publicKey}

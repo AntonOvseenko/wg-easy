@@ -27,3 +27,8 @@ iptables -A FORWARD -o wg0 -j ACCEPT;
 
 module.exports.WG_PRE_DOWN = process.env.WG_PRE_DOWN || '';
 module.exports.WG_POST_DOWN = process.env.WG_POST_DOWN || '';
+
+module.exports.WG_CLIENT_PRE_UP = process.env.WG_CLIENT_PRE_UP || '';
+module.exports.WG_CLIENT_POST_UP = process.env.WG_CLIENT_POST_UP || '';
+module.exports.WG_CLIENT_PRE_DOWN = process.env.WGCLIENT_PRE_DOWN || '';
+module.exports.WG_CLIENT_POST_DOWN = process.env.WG_CLIENT_POST_DOWN || '';

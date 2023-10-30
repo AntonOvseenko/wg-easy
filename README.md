@@ -94,6 +94,10 @@ These options can be configured by setting environment variables using `-e KEY="
 | `WG_POST_UP` | `...` | `iptables ...` | See [config.js](https://github.com/WeeJeWel/wg-easy/blob/master/src/config.js#L20) for the default value. |
 | `WG_PRE_DOWN` | `...` | - | See [config.js](https://github.com/WeeJeWel/wg-easy/blob/master/src/config.js#L27) for the default value. |
 | `WG_POST_DOWN` | `...` | `iptables ...` | See [config.js](https://github.com/WeeJeWel/wg-easy/blob/master/src/config.js#L28) for the default value. |
+| `WG_CLIENT_PRE_UP` | - | - | The string will be added in `PreUp` variable client config (not add in QR code) |
+| `WG_CLIENT_POST_UP` | - | - | The string will be added in `PreDown` variable client config (not add in QR code) |
+| `WG_CLIENT_PRE_DOWN` | -| - | The string will be added in `PostUp` variable client config (not add in QR code) |
+| `WG_CLIENT_POST_DOWN` | - | - | The string will be added in `PostDown` variable client config (not add in QR code) |
 
 > If you change `WG_PORT`, make sure to also change the exposed port.
 
